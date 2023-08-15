@@ -1,0 +1,26 @@
+
+.navbar__searchbar > input{
+    border: 0;
+    border-bottom: 1px solid rgb(177, 177, 177) ;
+    padding: 10px;
+}
+.navbar__searchbar > input:hover{
+ background-color: rgb(221, 219, 219);
+ border-bottom: 1px solid rgb(125, 126, 184) ;
+ border-radius: 4px;
+}
+.navbar__searchbar > input:focus{
+    outline: 0;
+    background-color: rgb(221, 219, 219);
+    border-bottom: 2px solid rgb(115, 116, 189) ;
+    border-radius: 4px;
+}
+
+
+.navbar__searchbar > input::placeholder{
+   color: rgb(177, 177, 177);
+   font-size: 18px;
+   font-weight: 200;
+}
+
+
