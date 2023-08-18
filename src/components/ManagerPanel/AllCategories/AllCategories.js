@@ -2,8 +2,11 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Button, Table } from 'semantic-ui-react';
 import { connect } from 'react-redux'
+import Notification from '../../../Utils/Notification';
 
-import { GetCategories } from '../../../Redux/CategorySlice';
+import { GetCategories, UpdateCategory, RemoveCategory, removeCategorynotification } from '../../../Redux/CategorySlice';
+import { Link } from 'react-router-dom';
+import PageLoading from '../../common/PageLoading';
 
 function AllCategories(props) {
 
@@ -19,28 +22,17 @@ function AllCategories(props) {
             }) */
 
         props.GetCategories()
+
     }, []);
 
-
-    const removeCategory = (id) => {
-
-        /*  axios.get(apiUrl + "category/delete/" + id).then((Response) => {
- 
-         }
-         ).catch((error) => {
-             console.log(error);
-         }
- 
-         ) */
-
-
-    }
-
+useEffect(() => {
+    const { Categories, removeCategorynotification } = props
+    Notification(Categories.notifications, removeCategorynotification)
+})
 
     return (
-        <div>
-
-            <Table fixed>
+        (props.Categories.isLoading) ? <PageLoading />
+            : <Table fixed>
                 <Table.Header>
                     <Table.Row>
                         <Table.HeaderCell>Name</Table.HeaderCell>
@@ -56,14 +48,16 @@ function AllCategories(props) {
                         return <Table.Row key={Math.random()}>
                             <Table.Cell>{element.categoryname}</Table.Cell>
                             <Table.Cell>{element.description}</Table.Cell>
-                            <Table.Cell><Button basic color='blue'>  Edit</Button></Table.Cell>
-                            <Table.Cell><Button onClick={removeCategory(element.id)} basic color='red'> Remove</Button></Table.Cell>
+                            <Table.Cell><Link to={'/UpdateCategory/' + element.id}><Button basic color='blue'>  Edit</Button></Link></Table.Cell>
+                            <Table.Cell><Button onClick={() => props.RemoveCategory(element.id)} basic color='red'> Remove</Button></Table.Cell>
+                            {/* <Table.Cell><Button onClick={RemoveCategory(element.id)} basic color='red'> Remove</Button></Table.Cell>
+                    <Table.Cell><Button onClick={UpdateCategory(element)} basic color='blue'>  Edit</Button></Table.Cell> */}
+
+
                         </Table.Row>
                     })}
                 </Table.Body>
             </Table>
-
-        </div>
     )
 }
 
@@ -72,7 +66,10 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-    GetCategories
+    GetCategories,
+    UpdateCategory,
+    RemoveCategory, 
+    removeCategorynotification
 }
 
 

@@ -41,7 +41,7 @@ class Category extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { categories: [] }
+    //this.state = { categories: [] }
   }
 
 
@@ -61,7 +61,6 @@ class Category extends Component {
   
   render() {
     
-    console.log('this.props: ', this.props);
 
     return (
       <div>
